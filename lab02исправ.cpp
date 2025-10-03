@@ -11,32 +11,42 @@ using namespace std;
 
 int main() {  
 
-  double a = 0.0288;
-
-  double b = 0.032;
-
-  double T = 15.7;
-
-  double V = 0.05; 
+  // P обозначем как уравнение состояния углекислого газа
+  double P;
   
-  double V1 = 0.2;
+  double a;
+  cout << " a = ";
+  cin >> a;
 
-  while (V < 0.2) {
-        
-    double P = (0.0635 * T) / (V - b) - a / (V * V);
+  double b;
+  cout << " b = ";
+  cin >> b;
+  
+  // температура газа
+  double GasTemperature;
+  cout << " GasTemperature = ";
+  cin >> GasTemperature;
+  
+  // объем газа
+  double GasVolume;
+  cout << " GasVolume = ";
+  cin >> GasVolume;
+  
+  // Пока объем газа меньше 0.2 м^3.
+  while (GasVolume < 0.2) {
+    P = (0.0635 * GasTemperature) / (GasVolume - b) - a / (GasVolume * GasVolume);
     cout << " P = " << P << endl;
-    V += 0.05;
-    
-    do {
-      
-      double P = (0.0635 * T) / (V1 - b) - a / (V1 * V1);
-      cout << " P = " << P << endl;
-      V1 += 0.2;
-      
-    } while(V1 < 1);
-      
-      
+    // 0.05 - шаг объема газа до 0.2.
+    GasVolume += 0.05;
   }
   
-  return 0; 
+  do {
+    P = (0.0635 * GasTemperature) / (GasVolume - b) - a / (GasVolume * GasVolume);
+    cout << " P = " << P << endl;
+    // 0.2 - шаг объема газа после 0.2.
+    GasVolume += 0.2;
+    // Пока объем газа меньше или равно 1.
+  } while(GasVolume <= 1.0);
+       
+  return 0;
 }
